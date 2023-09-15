@@ -1,25 +1,39 @@
-from django.shortcuts import render
-from django.views.generic.edit import CreateView
+from django.views.generic.edit import CreateView, FormView
 from django.views.generic.list import ListView
-from .forms import RegistrationForm, TodoForm
-from .models import ToDo
+from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth import login
+from .models import Task
 from django.urls import reverse_lazy
 
 # Create your views here.
 
 
-class UserRegistrationView(CreateView):
-    form_class = RegistrationForm
-    success_url = reverse_lazy('add-todo')
-    template_name = 'todo/index.html'
+class UserRegistrationView(FormView):
+    form_class = UserCreationForm
+    success_url = reverse_lazy('add-task')
+    template_name = 'todo/register.html'
 
+    def form_valid(self, form):
+        user = form.save()
+        login(self.request, user)
+        return super().form_valid(form)
 
 class TodoView(CreateView):
-    form_class = TodoForm
-    success_url = reverse_lazy('todo-list')
-    template_name = 'todo/todo.html'
+    model = Task
+    fields = ['title', 'description',]
+    success_url = reverse_lazy('task-list')
+    template_name = 'todo/add-task.html'
+
+    def form_valid(self, form):
+        form.instance.user = self.request.user
+        return super().form_valid(form)
 
 class TodoListView(ListView):
-    model = ToDo
-    template_name = 'todo/todo-list.html'
-    context_object_name = 'todo_list'
+    model = Task
+    template_name = 'todo/task-list.html'
+    context_object_name = 'task_list'
+
+    def get_queryset(self):
+        user = self.request.user
+        return Task.objects.filter(user=user)
+    
