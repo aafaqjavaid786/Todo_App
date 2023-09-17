@@ -2,12 +2,18 @@
 
 {% block content %}
 
-    {{ request.user|title }} 
+    {{ user|title }} 
+    {% if user.is_staff %}(Admin){% endif %}
     <br>
     <a href="{% url 'logout' %}">Logout</a>
 
     <h2>Add Task:</h2>
     <a href="{% url 'task-list' %}">My Tasks</a>
+    <br>
+    {% if user.is_staff %}
+        <a href="{% url 'all-tasks' %}">All Tasks</a>
+    {% endif %}
+
     <form method="post">
         {% csrf_token %}
         {{ form.as_p }}

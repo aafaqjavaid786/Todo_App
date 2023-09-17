@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+    {{ user|title }} 
+    {% if user.is_staff %}(Admin){% endif %}
+    <br>
+    <a href="{% url 'logout' %}">Logout</a>
+
+    <p>Are you sure you want to delete this task?</p>
+
+    {% comment %} <a href="{% url 'task-list' %}">
+        <button>No, Cancel</button>
+    </a> {% endcomment %}
+
+    <button onclick='history.back()'>No, Cancel</button>
+
+
+    <form method="post">
+        {% csrf_token %}
+        <button type='submit'>Confirm Delete</button>
+
+    </form>
+
+{% endblock content %}
+

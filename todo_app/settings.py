@@ -120,7 +120,7 @@ USE_TZ = True
 
 STATIC_URL = 'static/'
 
-LOGIN_REDIRECT_URL = 'add-task'
+LOGIN_REDIRECT_URL = 'task-add'
 LOGOUT_REDIRECT_URL = 'login'
 
 

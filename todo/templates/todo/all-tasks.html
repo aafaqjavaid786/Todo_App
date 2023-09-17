@@ -7,20 +7,25 @@
     <br>
     <a href="{% url 'logout' %}">Logout</a>
 
-    <h2>My Tasks:</h2>
+    <h2>All Tasks:</h2>
 
     <ul>
         {% for task in task_list %}
             <li>
                 <strong>Title: {{ task.title }}</strong>
                 <br>
-                <strong>Description:</strong> {{ task.description }} 
+                <strong>Description:</strong> {{ task.description }}
                 <br>
+                <strong>User:</strong> {{task.user}} 
+                <br>
+
 
                 <a href="{% url 'task-detail' task.id %}">View</a>
                 <a href="{% url 'task-edit' task.id %}">Edit</a>
                 <a href="{% url 'task-remove' task.id %}">Remove</a>
                 <br> <br>
+
+
             </li>
         {% endfor %}
     </ul>
@@ -32,4 +37,3 @@
     {% comment %} <button onclick='history.back()'>Back</button> {% endcomment %}
 
 {% endblock content %}
-
