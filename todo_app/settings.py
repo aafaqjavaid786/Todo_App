@@ -38,6 +38,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'todo',
+    'django_summernote',
 ]
 
 MIDDLEWARE = [
@@ -123,8 +124,15 @@ STATIC_URL = 'static/'
 LOGIN_REDIRECT_URL = 'task-add'
 LOGOUT_REDIRECT_URL = 'login'
 
-
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.1/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+SUMMERNOTE_CONFIG = {
+    'summernote': {
+        'height': 200,
+        'width': 530,  
+    },
+}
+

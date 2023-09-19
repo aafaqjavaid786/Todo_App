@@ -1,0 +1,12 @@
+<div class="mb-3 p-3 bg-info text-white rounded d-flex justify-content-between">
+
+    <div>
+        <h2>{{ user|title }} </h2>
+        
+        {% if user.is_staff %}(Admin){% endif %}
+    </div>
+
+    <div>
+        <a href="{% url 'logout' %}">Logout</a>
+    </div>
+</div>

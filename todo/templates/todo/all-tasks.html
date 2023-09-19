@@ -2,38 +2,28 @@
 
 {% block content %}
 
-    {{ user|title }} 
-    {% if user.is_staff %}(Admin){% endif %}
-    <br>
-    <a href="{% url 'logout' %}">Logout</a>
+    {% include "todo/includes/header-bar.html" %}
 
     <h2>All Tasks:</h2>
 
-    <ul>
+    <ul class='list-group mb-3'>
         {% for task in task_list %}
-            <li>
+            <li class='list-group-item'>
                 <strong>Title: {{ task.title }}</strong>
                 <br>
-                <strong>Description:</strong> {{ task.description }}
-                <br>
+                <strong>Description:</strong> {{ task.description | safe }}
                 <strong>User:</strong> {{task.user}} 
-                <br>
-
-
-                <a href="{% url 'task-detail' task.id %}">View</a>
-                <a href="{% url 'task-edit' task.id %}">Edit</a>
-                <a href="{% url 'task-remove' task.id %}">Remove</a>
                 <br> <br>
 
-
-            </li>
+                <a href="{% url 'task-detail' task.id %}" class="btn btn-primary">View</a>
+                <a href="{% url 'task-edit' task.id %}" class="btn btn-warning">Edit</a>
+                <a href="{% url 'task-remove' task.id %}" class="btn btn-danger">Remove</a>
+             </li>
         {% endfor %}
     </ul>
 
     <a href="{% url 'task-add' %}">
-        <button>Back</button>
+        <button class="btn btn-secondary">Back</button>
     </a>
-
-    {% comment %} <button onclick='history.back()'>Back</button> {% endcomment %}
 
 {% endblock content %}
