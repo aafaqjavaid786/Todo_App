@@ -1,0 +1,5 @@
+db.sqlite
+todo/Include 
+todo/Lib
+todo/Scripts
+todo/pyvenv.cfg
